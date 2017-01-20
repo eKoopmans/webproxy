@@ -10,7 +10,7 @@
  *
  *				{ method:	The HTTP method ('GET' or 'POST') to use. Default is 'GET'.
  *
- *				  query:	A string that will be attached the URL as a GET query.
+ *				  query:	A string that will be attached to the URL as a GET query.
  *
  *				  data:		Data that will be sent in a POST message. It can take one of several
  *							formats, and will automatically set the 'Content-Type' header:
