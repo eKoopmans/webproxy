@@ -63,6 +63,16 @@ The `opts.header` option allows you to specify HTTP headers that will be sent wi
 
 An array of headers should be specified with the format `['H1Name: H1Val', 'H2Name: H2Val']`. An object of headers should take the form `{'H1Name': 'H1Val', 'H2Name': H2Val}`. In both cases, the list of headers are joined together into a single string separated by the NULL character (ASCII 0). Note that this will cause problems if any of your headers contain the NULL character (very unlikely).
 
+## YQL Open Data Tables (ODT) and webproxy.xml
+
+The proxy server YQL (Yahoo! Query Language) requires a set of instructions to parse any requests being sent to it. These instructions are XML files called Open Data Tables (ODT).
+
+WebProxy sends its requests to YQL along with the URL of `webproxy.xml`, a customized ODT specifically for use with WebProxy. The file is currently hosted [here](http://www.erik-koopmans.com/webproxy/webproxy.xml), however you are welcome to host the file on your own server. Simply update the variable `odtUrl` in `webproxy.js` with the URL of your hosted version.
+
+## Dependencies
+
+WebProxy does not require any external JavaScript packages. It uses jQuery if available to handle AJAX requests, but has an internal fallback that maintains full functionality in its absence.
+
 ## Credits
 
 - [Erik Koopmans](https://github.com/eKoopmans)
@@ -71,4 +81,4 @@ An array of headers should be specified with the format `['H1Name: H1Val', 'H2Na
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2017 Erik Koopmans <[http://www.erik-koopmans.com](http://www.erik-koopmans.com)>
+Copyright (c) 2017 Erik Koopmans <[http://www.erik-koopmans.com/](http://www.erik-koopmans.com/)>
