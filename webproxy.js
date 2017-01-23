@@ -68,7 +68,6 @@ var webproxy = (function() {
 	}
 	// Helper getJSON function, if jQuery isn't available
 	var getJSON = $.getJSON || function(url, data, success) {
-	//var getJSON = function(url, data, success) {
 		// Create a simple clone of jQuery $.param
 		var param = function(obj) {
 			return Object.keys(obj).map(function(key) {

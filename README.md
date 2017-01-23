@@ -69,6 +69,10 @@ The proxy server YQL (Yahoo! Query Language) requires a set of instructions to p
 
 WebProxy sends its requests to YQL along with the URL of `webproxy.xml`, a customized ODT specifically for use with WebProxy. The file is currently hosted [here](http://www.erik-koopmans.com/webproxy/webproxy.xml), however you are welcome to host the file on your own server. Simply update the variable `odtUrl` in `webproxy.js` with the URL of your hosted version.
 
+## LocalProxy
+
+I have also included a standalone package, LocalProxy, that may be used in place of WebProxy. To use it you must host localproxy.php on your server, thus creating your own (local) proxy server. This is not recommended, as it is not very secure, but is included for testing and troubleshooting purposes.
+
 ## Dependencies
 
 WebProxy does not require any external JavaScript packages. It uses jQuery if available to handle AJAX requests, but has an internal fallback that maintains full functionality in its absence.
