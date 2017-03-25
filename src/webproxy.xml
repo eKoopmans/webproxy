@@ -44,6 +44,6 @@
       response.object = res;
 
     ]]></execute>
-  </select> 
+  </select>
   </bindings>
 </table>

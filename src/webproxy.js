@@ -48,12 +48,12 @@
 var webproxy = (function() {
 	/*** CHANGE THIS URL IF YOU WISH TO HOST THE XML FILE YOURSELF ***/
 	var odtUrl = 'http://www.erik-koopmans.com/webproxy/webproxy.xml';
-	
+
 	// Establish settings
 	var scheme = (document.location.protocol === 'https:' ? 'https:' : 'http:');
 	var yqlUrl = scheme + '//query.yahooapis.com/v1/public/yql';
 	var headerDelim = String.fromCharCode(0);
-	
+
 	// Helper functions
 	var isStr = function(obj) {
 		return (typeof obj === 'string' || obj instanceof String);
@@ -74,14 +74,14 @@ var webproxy = (function() {
 				return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
 			}).join('&');
 		}
-		
+
 		// Attach data as a query string
 		if (data)	url += '?' + param(data);
 
 		// Initiate the request
 		var req = new XMLHttpRequest();
 		req.open('GET', url, true);
-		
+
 		// Handle the loaded request
 		req.onload = function() {
 			if (req.status >= 200 && req.status < 400) {
@@ -89,7 +89,7 @@ var webproxy = (function() {
 				success(req.responseJSON);
 			}
 		}
-		
+
 		// Send the request
 		req.send();
 		return req;
@@ -122,7 +122,7 @@ var webproxy = (function() {
 				break;
 			default:			throw 'Unknown header format.';
 		}
-		
+
 		// Handle different opts.data formats
 		if (opts.data) {
 			// Convert anything non-string into a JSON string and set the correct header
@@ -131,14 +131,14 @@ var webproxy = (function() {
 				var header = 'Content-Type: application/json';
 			}
 			else	var header = 'Content-Type: application/x-www-form-urlencoded';
-			
+
 			// URL-encode the data; it will be decoded inside of htmlproxy.xml
 			opts.data = encodeURIComponent(opts.data);
-			
+
 			// Attach the header (as the first item, so it can be overridden)
 			opts.header = opts.header ? [header].concat(opts.header) : [header];
 		}
-		
+
 		// Combine the header field into a single string, if it exists
 		if (opts.header)	opts.header = opts.header.join(headerDelim);
 
@@ -148,7 +148,7 @@ var webproxy = (function() {
 		for (var key in opts) {
 			statement += ' and ' + key + '="' + opts[key] + '"';
 		}
-		
+
 		// Create a wrapper function that will return the parsed data to the callback
 		var wrapCallback = function(data) {
 			// Results are always the first child of data.query.results (name is inconsistent)
@@ -156,11 +156,11 @@ var webproxy = (function() {
 				return callback(data.query.results[key]);
 			}
 		}
-		
+
 		// Issue the YQL request
 		return getJSON(yqlUrl, {q: statement, format: 'json'}, wrapCallback);
 	}
-	
+
 	// Expose the webproxy function
 	return webproxy;
 }());

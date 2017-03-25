@@ -5,4 +5,5 @@
 /node_modules/
 
 # Personal ignores
-/research/
+/~archive/
+/~devel/
