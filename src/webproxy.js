@@ -118,7 +118,7 @@ var webproxy = (function() {
       // Results are always the first child of data.query.results (name is inconsistent).
       for (var key in data.query.results) {
         var info = data.query.results[key];
-        return callback(child.response, child);
+        return callback(info.response, info);
       }
     }
 
