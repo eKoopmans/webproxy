@@ -67,7 +67,7 @@ An array of headers should be specified with the format `['H1Name: H1Val', 'H2Na
 
 The proxy server YQL (Yahoo! Query Language) requires a set of instructions to parse any requests being sent to it. These instructions are XML files called Open Data Tables (ODT).
 
-WebProxy sends its requests to YQL along with the URL of `webproxy.xml`, a customized ODT specifically for use with WebProxy. The file is currently hosted [here](https://cdn.rawgit.com/eKoopmans/webproxy/deb1c746/src/webproxy.xml), however you are welcome to host the file on your own server. Simply update the variable `odtUrl` in `webproxy.js` with the URL of your hosted version.
+WebProxy sends its requests to YQL along with the URL of `webproxy.xml`, a customized ODT specifically for use with WebProxy. The file is currently hosted [here](https://cdn.rawgit.com/eKoopmans/webproxy/8767ae70/src/webproxy.xml), however you are welcome to host the file on your own server. Simply update the variable `odtUrl` in `webproxy.js` with the URL of your hosted version.
 
 ## LocalProxy
 
