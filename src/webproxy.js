@@ -53,39 +53,44 @@ var webproxy = (function() {
   // The primary webproxy function.
   var webproxy = function(url, callback, opts) {
     // Handle default arguments.
-    if (!url)    throw "Webproxy requires a target URL."
-    if (!callback)  callback = function() {};
-    if (!opts)    opts = {};
+    if (!url)       { throw "Webproxy requires a target URL." }
+    if (!callback)  { callback = function() {}; }
+    if (!opts)      { opts = {}; }
 
     // Handle different opts.header formats (convert all to array).
     switch (objType(opts.header)) {
-      case 'undefined':  break;
-      case 'string':    opts.header = [opts.header];  break;
+      case 'undefined':
+        break;
+      case 'string':
+        // Format: 'h1name: h1val'.
+        opts.header = [opts.header];
+        break;
       case 'array':
-        // Array format:  opts.header = ['h1name: h1val', 'h2name: h2val'];
-        //       or:  opts.header = [['h1name', 'h1val'], ['h2name', 'h2val']];
+        // Format:  ['h1name: h1val', ...] or [['h1name', 'h1val'], ...].
         for (var i=0; i<opts.header.length; i++) {
           if (!isStr(opts.header[i]))
             opts.header[i] = opts.header[i].join(': ');
         }
         break;
       case 'object':
-        // Object format:  opts.header = {h1name: 'h1val', h2name: 'h2val'};
+        // Format:  {h1name: 'h1val', ...}.
         opts.header = Object.keys(opts.header).map(function(key) {
           return key + ': ' + opts.header[key];
         });
         break;
-      default:      throw 'Unknown header format.';
+      default:
+        throw 'Unknown header format.';
     }
 
     // Handle different opts.data formats.
     if (opts.data) {
-      // Convert anything non-string into a JSON string and set the correct header.
+      // Convert anything non-string into a JSON string and set the header.
       if (!isStr(opts.data)) {
         opts.data = JSON.stringify(opts.data);
         var header = 'Content-Type: application/json';
+      } else {
+        var header = 'Content-Type: application/x-www-form-urlencoded';
       }
-      else  var header = 'Content-Type: application/x-www-form-urlencoded';
 
       // URL-encode the data; it will be decoded inside of htmlproxy.xml.
       opts.data = encodeURIComponent(opts.data);
