@@ -39,8 +39,8 @@
       }
 
       // Issue the GET/POST request and return the response
-      if (post)  { var res = req.post(data).response; }
-      else       { var res = req.get().response; }
+      if (post)  { var res = req.post(data); }
+      else       { var res = req.get(); }
       response.object = res;
 
     ]]></execute>

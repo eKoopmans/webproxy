@@ -25,10 +25,18 @@
  */
 
 /**
+ * Callback that receives the proxy response.
+ *
+ * @callback proxyCallback
+ * @param {string} response The response from the proxied resource.
+ * @param {Object} info The full response object (including headers, etc).
+ */
+
+/**
  * Proxy GET and POST requests through YQL (Yahoo! Query Language).
  *
  * @param {string} url The URL to contact via YQL.
- * @param {function} callback The callback function that will receive the
+ * @param {proxyCallback} callback The callback function that will receive the
  *    response.
  * @param {Object=} opt An object of optional settings: 'method', 'query',
  *    'data', and 'header'.
@@ -109,7 +117,8 @@ var webproxy = (function() {
     var wrapCallback = function(data) {
       // Results are always the first child of data.query.results (name is inconsistent).
       for (var key in data.query.results) {
-        return callback(data.query.results[key]);
+        var info = data.query.results[key];
+        return callback(child.response, child);
       }
     }
 
