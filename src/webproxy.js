@@ -11,14 +11,16 @@ var webproxy = (function() {
   var isStr = function(obj) {
     return (typeof obj === 'string' || obj instanceof String);
   }
+  // Determine the type of a variable/object.
   var objType = function(obj) {
-    if (typeof obj === 'undefined')                return 'undefined';
+    if (typeof obj === 'undefined')                             return 'undefined';
     else if (typeof obj === 'string' || obj instanceof String)  return 'string';
     else if (typeof obj === 'number' || obj instanceof Number)  return 'number';
-    else if (!!obj && obj.constructor === Array)        return 'array';
-    else if (typeof obj === 'object')              return 'object';
-    else                            return 'unknown';
-  }
+    else if (!!obj && obj.constructor === Array)                return 'array';
+    else if (obj && obj.nodeType === 1)                         return 'element';
+    else if (typeof obj === 'object')                           return 'object';
+    else                                                        return 'unknown';
+  };
   // Helper getJSON function, if jQuery isn't available
   var getJSON = $.getJSON || function(url, data, success) {
     // Create a simple clone of jQuery $.param
