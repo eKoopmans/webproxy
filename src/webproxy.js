@@ -1,4 +1,7 @@
 var webproxy = (function() {
+
+  /* ---------- SETTINGS ---------- */
+
   /*** CHANGE THIS URL IF YOU WISH TO HOST THE XML FILE YOURSELF. ***/
   var odtUrl = 'http://www.erik-koopmans.com/webproxy/webproxy.xml';
 
@@ -7,50 +10,8 @@ var webproxy = (function() {
   var yqlUrl = scheme + '//query.yahooapis.com/v1/public/yql';
   var headerDelim = String.fromCharCode(0);
 
-  // Helper functions.
-  var isStr = function(obj) {
-    return (typeof obj === 'string' || obj instanceof String);
-  }
-  // Determine the type of a variable/object.
-  var objType = function(obj) {
-    if (typeof obj === 'undefined')                             return 'undefined';
-    else if (typeof obj === 'string' || obj instanceof String)  return 'string';
-    else if (typeof obj === 'number' || obj instanceof Number)  return 'number';
-    else if (!!obj && obj.constructor === Array)                return 'array';
-    else if (obj && obj.nodeType === 1)                         return 'element';
-    else if (typeof obj === 'object')                           return 'object';
-    else                                                        return 'unknown';
-  };
-  // Helper getJSON function, if jQuery isn't available.
-  var getJSON = $.getJSON || function(url, data, success) {
-    // Create a simple clone of jQuery $.param.
-    var param = function(obj) {
-      return Object.keys(obj).map(function(key) {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
-      }).join('&');
-    }
+  /* ---------- MAIN FUNCTION ---------- */
 
-    // Attach data as a query string.
-    if (data)  url += '?' + param(data);
-
-    // Initiate the request.
-    var req = new XMLHttpRequest();
-    req.open('GET', url, true);
-
-    // Handle the loaded request.
-    req.onload = function() {
-      if (req.status >= 200 && req.status < 400) {
-        req.responseJSON = JSON.parse(req.responseText);
-        success(req.responseJSON);
-      }
-    }
-
-    // Send the request.
-    req.send();
-    return req;
-  }
-
-  // The primary webproxy function.
   var webproxy = function(url, callback, opts) {
     // Handle default arguments.
     if (!url)       { throw "Webproxy requires a target URL." }
@@ -120,6 +81,54 @@ var webproxy = (function() {
     // Issue the YQL request.
     return getJSON(yqlUrl, {q: statement, format: 'json'}, wrapCallback);
   }
+
+  /* ---------- UTILS ---------- */
+
+  // Determine whether an object is a string.
+  var isStr = function(obj) {
+    return (typeof obj === 'string' || obj instanceof String);
+  }
+
+  // Determine the type of a variable/object.
+  var objType = function(obj) {
+    if (typeof obj === 'undefined')                             return 'undefined';
+    else if (typeof obj === 'string' || obj instanceof String)  return 'string';
+    else if (typeof obj === 'number' || obj instanceof Number)  return 'number';
+    else if (!!obj && obj.constructor === Array)                return 'array';
+    else if (obj && obj.nodeType === 1)                         return 'element';
+    else if (typeof obj === 'object')                           return 'object';
+    else                                                        return 'unknown';
+  };
+
+  // Helper getJSON function, if jQuery isn't available.
+  var getJSON = $.getJSON || function(url, data, success) {
+    // Create a simple clone of jQuery $.param.
+    var param = function(obj) {
+      return Object.keys(obj).map(function(key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+      }).join('&');
+    }
+
+    // Attach data as a query string.
+    if (data)  url += '?' + param(data);
+
+    // Initiate the request.
+    var req = new XMLHttpRequest();
+    req.open('GET', url, true);
+
+    // Handle the loaded request.
+    req.onload = function() {
+      if (req.status >= 200 && req.status < 400) {
+        req.responseJSON = JSON.parse(req.responseText);
+        success(req.responseJSON);
+      }
+    }
+
+    // Send the request.
+    req.send();
+    return req;
+  }
+
 
   // Expose the webproxy function.
   return webproxy;
