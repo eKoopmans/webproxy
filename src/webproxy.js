@@ -3,7 +3,7 @@ var webproxy = (function() {
   /* ---------- SETTINGS ---------- */
 
   /*** CHANGE THIS URL IF YOU WISH TO HOST THE XML FILE YOURSELF. ***/
-  var odtUrl = 'http://www.erik-koopmans.com/webproxy/webproxy.xml';
+  var odtUrl = 'https://cdn.rawgit.com/eKoopmans/webproxy/deb1c746/src/webproxy.xml';
 
   // Establish settings.
   var scheme = (document.location.protocol === 'https:' ? 'https:' : 'http:');
